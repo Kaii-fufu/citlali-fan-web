@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Citlali • Genshin Impact</title>
+
+  <!-- FAVICON -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#1a1f3c;
+      --bg2:#3b2a5e;
+      --glass:rgba(255,255,255,.14);
+      --border:rgba(255,255,255,.28);
+      --text:#fff;
+    }
+    body.light{
+      --bg1:#eef1ff;
+      --bg2:#f9edff;
+      --glass:rgba(255,255,255,.75);
+      --border:rgba(255,255,255,.9);
+      --text:#1f2340;
+    }
+
+    body{
+      font-family:'Quicksand',sans-serif;
+      color:var(--text);
+      background:linear-gradient(120deg,var(--bg1),var(--bg2));
+      background-size:400% 400%;
+      animation:bgMove 18s ease infinite;
+      overflow-x:hidden;
+      cursor:none;
+    }
+
+    @keyframes bgMove{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    .glass{
+      background:var(--glass);
+      backdrop-filter:blur(16px);
+      border:1px solid var(--border);
+      box-shadow:0 10px 36px rgba(0,0,0,.35);
+    }
+
+    /* Cursor */
+    .cursor{
+      position:fixed;
+      top:0;left:0;
+      width:48px;height:48px;
+      pointer-events:none;
+      z-index:9999;
+      background:url("assets/citlali-pillow-cursor.png") center/contain no-repeat;
+      transform:translate(-50%,-50%);
+      transition:transform .15s ease;
+    }
+    .cursor.click{transform:translate(-50%,-50%) scale(.85)}
+
+    /* Hero */
+    .hero{
+      height:100vh;
+      background:url("assets/citlali-bg.jpg") center/cover fixed;
+      position:relative;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to bottom,rgba(0,0,0,.35),rgba(0,0,0,.75));
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(30px);
+      transition:all .9s ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform:none;
+    }
+
+    canvas#particles{
+      position:fixed;
+      inset:0;
+      z-index:0;
+    }
+
+    html{scroll-behavior:smooth}
+  </style>
+</head>
+
+<body id="root">
+
+<!-- ENTER SCREEN -->
+<div id="enter" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black text-white transition-opacity duration-1000">
+  <div class="text-center space-y-6">
+    <h1 class="text-4xl md:text-5xl font-bold" style="font-family:'Zen Dots'">Welcome to Teyvat</h1>
+    <p class="opacity-80">Citlali • Genshin Impact</p>
+    <button id="enterBtn" class="px-8 py-3 rounded-2xl glass text-lg hover:scale-105 transition">
+      ✨ Enter ✨
+    </button>
+  </div>
+</div>
+
+<canvas id="particles"></canvas>
+<div class="cursor" id="cursor"></div>
+
+<nav class="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center glass">
+  <div class="font-bold tracking-widest">CITLALI</div>
+  <div class="flex gap-5 text-sm">
+    <a href="#about">Giới thiệu</a>
+    <a href="#style">Phong cách</a>
+    <a href="#gallery">Gallery</a>
+  </div>
+  <div class="flex gap-3">
+    <button onclick="toggleTheme()" class="glass px-3 py-1 rounded-lg">🌙</button>
+    <button onclick="toggleMusic()" class="glass px-3 py-1 rounded-lg">🎵</button>
+  </div>
+</nav>
+
+<section class="hero flex items-center justify-center text-center">
+  <div class="relative z-10 reveal">
+    <h1 class="text-6xl md:text-7xl font-bold" style="font-family:'Zen Dots'">Citlali</h1>
+    <p class="mt-6 opacity-90">Genshin Impact • Anime Fan Web</p>
+  </div>
+</section>
+
+<main class="max-w-6xl mx-auto px-6 py-24 space-y-24 relative z-10">
+
+<section id="about" class="grid md:grid-cols-3 gap-8">
+  <div class="glass p-6 rounded-2xl reveal">
+    <h2 class="text-2xl mb-2">Giới thiệu</h2>
+    <p>Citlali mang vẻ đẹp huyền bí và cảm giác yên bình.</p>
+  </div>
+  <div class="glass p-6 rounded-2xl reveal">
+    <h2 class="text-2xl mb-2">Cảm hứng</h2>
+    <p>Phong cách anime, chuyển động nhẹ và mượt.</p>
+  </div>
+  <div class="glass p-6 rounded-2xl reveal">
+    <h2 class="text-2xl mb-2">Tính năng</h2>
+    <ul class="list-disc list-inside">
+      <li>Glassmorphism</li>
+      <li>Particles</li>
+      <li>Custom Cursor</li>
+    </ul>
+  </div>
+</section>
+
+<section id="style" class="glass rounded-3xl p-10 reveal">
+  <h2 class="text-3xl mb-4">Phong cách thị giác</h2>
+  <p>Màu sắc dịu, hiệu ứng blur và anime transition.</p>
+</section>
+
+<section id="gallery" class="reveal">
+  <h2 class="text-3xl mb-8">Gallery</h2>
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <img src="assets/citlali-1.jpg" class="rounded-2xl" />
+    <img src="assets/citlali-2.jpg" class="rounded-2xl" />
+    <img src="assets/citlali-3.jpg" class="rounded-2xl" />
+  </div>
+</section>
+
+</main>
+
+<footer class="text-center py-16 opacity-70 relative z-10">
+  Fan-made • Không liên kết với HoYoverse
+</footer>
+
+<audio id="bgm" loop>
+  <source src="assets/citlali-bgm.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* ===== GLOBAL BUTTON FUNCTIONS ===== */
+function toggleTheme(){
+  document.body.classList.toggle('light');
+}
+
+function toggleMusic(){
+  const music = document.getElementById('bgm');
+  if (!music) return;
+  if (music.paused) music.play().catch(()=>{});
+  else music.pause();
+}
+
+/* ===== MAIN LOGIC ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  const music = document.getElementById('bgm');
+  const enter = document.getElementById('enter');
+  const btn = document.getElementById('enterBtn');
+
+  if (btn && enter) {
+    btn.addEventListener('click', () => {
+      if (music) {
+        music.volume = 0;
+        music.play().then(() => {
+          let v = 0;
+          const fade = setInterval(() => {
+            v += 0.05;
+            music.volume = Math.min(v,1);
+            if (v >= 1) clearInterval(fade);
+          }, 100);
+        }).catch(()=>{});
+      }
+      enter.style.opacity = '0';
+      setTimeout(()=> enter.style.display='none', 1000);
+    });
+  }
+
+  /* Cursor */
+  const cursor = document.getElementById('cursor');
+  window.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX+'px';
+    cursor.style.top = e.clientY+'px';
+  });
+  window.addEventListener('mousedown', ()=>cursor.classList.add('click'));
+  window.addEventListener('mouseup', ()=>cursor.classList.remove('click'));
+
+  /* Reveal */
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>e.isIntersecting && e.target.classList.add('show'));
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* Particles */
+  const c = document.getElementById('particles');
+  const ctx = c.getContext('2d');
+  let w,h,stars=[];
+  function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
+  window.addEventListener('resize',resize);resize();
+  for(let i=0;i<120;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5+.5,s:Math.random()*.3+.1});
+  (function anim(){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle='rgba(255,255,255,.8)';
+    stars.forEach(s=>{
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fill();
+      s.y+=s.s;if(s.y>h)s.y=0;
+    });
+    requestAnimationFrame(anim);
+  })();
+});
+</script>
+
+</body>
+</html>
